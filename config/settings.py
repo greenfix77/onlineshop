@@ -46,12 +46,13 @@ INSTALLED_APPS = [
     #third party apps
     'allauth',
     'allauth.account',
-
     'crispy_forms',
     'crispy_bootstrap5',
+
     #local apps
     'accounts',
     'pages',
+    'products',
 
 
 ]
