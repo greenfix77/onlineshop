@@ -42,7 +42,7 @@
                         <div class="site-branding" style="margin-right: 30px;">
                             <a href="{% url 'product_list' %}" class="logo">
                                 <figure class="logo--normal d-none d-sm-block">
-                                    <img class="px-5" src="assets/img/codingyar_logo.png"
+                                    <img class="px-5" src={% static '/img/codingyar_logo.png' %}
                                          style="max-height: 50px; margin-bottom: -15px;" alt="Logo">
                                 </figure>
                             </a>
@@ -122,6 +122,14 @@
     </div>
 </header>
 <!-- Header End -->
+ {% if messages %}
+    <div class="container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
 {% block content %}
 {% endblock %}
 
@@ -129,12 +137,32 @@
 
 <!-- jQuery JS -->
 <script src="{% static 'js/vendor.js' %}"></script>
-
 <!-- Main JS -->
 <script src="{% static 'js/main.js' %}"></script>
 
 {#<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"#}
 {#        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"#}
 {#        crossorigin="anonymous"></script>#}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+            let alerts = document.querySelectorAll(".alert");
+            alerts.forEach(function (alert) {
+                let fadeEffect = setInterval(function () {
+                    if (!alert.style.opacity) {
+                        alert.style.opacity = "1";
+                    }
+                    if (alert.style.opacity > "0") {
+                        alert.style.opacity -= "0.1";
+                    } else {
+                        clearInterval(fadeEffect);
+                        alert.remove();
+                    }
+                }, 50);
+            });
+        }, 5000);  // 10 ثانیه
+    });
+</script>
+
 </body>
 </html>

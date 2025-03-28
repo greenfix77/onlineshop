@@ -45,4 +45,5 @@ class CommentCreateView(generic.CreateView):
 
         messages.success(self.request, _('Comment successfully created'))
 
+
         return super().form_valid(form)
